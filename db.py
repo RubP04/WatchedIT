@@ -19,3 +19,15 @@ def create_user(email, password):
     session = response.get("session")
 
     return session.get("access_token")
+
+def sign_user_in(email, password):
+    response = supabase.auth.sign_in_with_password(
+        {
+            "email": email,
+            "password": password,
+        }
+    )
+
+    session = response.get("session")
+
+    return session.get("access_token")
