@@ -3,6 +3,7 @@ import NavBar from "./Components/NavBar"
 import Home from "./Components/Home"
 import Watchlist from "./Components/Watchlist"
 import FindMovies from "./Components/FindMovies"
+import Login from "./Components/Login"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <>
+      <Login/>
       <NavBar setScreen={setScreen}/>
       {screen == "home" ? <Home/>:screen=="findmovies" ? <FindMovies {...findMovieProps}/>:<Watchlist {...watchlistProps}/>}
     </>
