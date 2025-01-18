@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from db import create_user, sign_user_in
 import requests, pandas as pd
 
 app = Flask(__name__)
@@ -169,6 +170,26 @@ def get_genres():
     data = response.json()
     results = data.get("genres", [])
     return results
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+    result = {
+        "validated": False
+    }
+
+    response = sign_user_in(email, password)
+    
+    try:
+        user = response.user
+        result["validated"] = True
+    except Exception as e:
+        print(e)
+
+
+    return jsonify(result)
 
 
 if __name__ == "__main__":

@@ -271,3 +271,8 @@ h1{
   background-color: gray;
   color: black
 }
+.error-msg{
+  color: red;
+  display: flex;
+  justify-content: center;
+}
