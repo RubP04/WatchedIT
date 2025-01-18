@@ -25,16 +25,22 @@ const Signup = () => {
     }
 
     return (
-        <div>
-            <h1>Signup</h1>
-            <form onSubmit={handleSubmit}>
-                <p1>Email</p1>
-                <input value={email} onChange={() => handleEmailChange(event)}></input>
-                <p1>Password</p1>
-                <input value={password} onChange={() => handlePasswordChange(event)}></input>
-                <button type="submit">Sign Up</button>
-                <button onClick={handleLoginClick}>Login</button>
-            </form>
+        <div className="auth-container">
+            <div className="auth-form">
+                <div className="auth-title">
+                    <p1>Sign Up</p1><br/><br/>
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <p1>Email</p1><br/>
+                    <input className="input" value={email} type="email" required onChange={() => handleEmailChange(event)}></input><br/><br/>
+                    <p1>Password</p1><br/>
+                    <input className="input" value={password} type="password" required onChange={() => handlePasswordChange(event)}></input><br/><br/>
+                    <div className="auth-btn-container">
+                        <button className="auth-btn" type="submit">Sign Up</button>
+                        <button className="auth-btn" onClick={handleSignupClick}>Login</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
