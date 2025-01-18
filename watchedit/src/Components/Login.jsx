@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Signup from './Signup'
 
 const Login = () => {
 
@@ -19,6 +20,10 @@ const Login = () => {
         console.log(email)
     }
 
+    const handleSignupClick = () => {
+            
+    }
+
   return (
     <div>
         <h1>Login</h1>
@@ -28,7 +33,7 @@ const Login = () => {
             <p1>Password</p1>
             <input value={password} onChange={() => handlePasswordChange(event)}></input>
             <button type="submit">Login</button>
-            <button>Sign Up</button>
+            <button onClick={handleSignupClick}>Sign Up</button>
         </form>
     </div>
   )
