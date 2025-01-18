@@ -2,15 +2,7 @@
 const NavBar = ({setScreen}) => {
 
   const handleClick = (navScreen) => {
-    if (navScreen === "home"){
-      setScreen("home")
-    }
-    else if (navScreen === "watchlist"){
-      setScreen("watchlist")
-    }
-    else{
-      setScreen("findmovies")
-    }
+    setScreen(navScreen)
   }
 
   return (
@@ -20,6 +12,7 @@ const NavBar = ({setScreen}) => {
           <button className="nav-btn" onClick={() => handleClick("home")}>Home</button>
           <button className="nav-btn" onClick={() => handleClick("watchlist")}>Watch List</button>
           <button className="nav-btn" onClick={() => handleClick("findmovies")}>Find Movies</button>
+          <button className="nav-btn" onClick={() => handleClick("login")}>Login</button>
         </div>
     </div>
   )

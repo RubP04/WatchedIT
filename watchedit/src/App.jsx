@@ -16,9 +16,8 @@ function App() {
 
   return (
     <>
-      <Login/>
       <NavBar setScreen={setScreen}/>
-      {screen == "home" ? <Home/>:screen=="findmovies" ? <FindMovies {...findMovieProps}/>:<Watchlist {...watchlistProps}/>}
+      {screen == "home" ? <Home/>:screen=="login" ? <Login/>:screen=="findmovies" ? <FindMovies {...findMovieProps}/>:<Watchlist {...watchlistProps}/>}
     </>
   )
 }
