@@ -7,7 +7,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [genres, setGenres] = useState([])
     const [select, setSelect] = useState()
-    const [query, setQuery] = useState()
+    const [query, setQuery] = useState("")
 
     useEffect(() =>{
         fetch("http://127.0.0.1:5000/tmdb/genres")

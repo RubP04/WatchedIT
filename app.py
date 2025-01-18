@@ -15,7 +15,7 @@ def api_results(url):
 
     response = requests.get(url, params=params)
     data = response.json()
-    results = data.get("results")
+    results = data.get("results", [])
     return results
 
 def get_list(category, page_no):
@@ -81,6 +81,7 @@ def generate_recommendations(user_movies):
 
     df_top_movies = pd.DataFrame(top_movies)
     df_user_movies = pd.DataFrame(user_movies)
+   
     df_top_movies[0] = df_top_movies[0].astype(str)
     df_user_movies[0] = df_user_movies[0].astype(str)
     
@@ -110,9 +111,13 @@ def get_recommendations():
     data = request.get_json()
     watchlist = data.get("watchlistMovies")
     completed_movies = data.get("completedMovies")
+
     n = len(watchlist)
     m = len(completed_movies)
     user_movies = []
+
+    if n == 0 and m == 0:
+        return []
 
     for i in range(n):
         user_movies.append(extract_movie_info(watchlist[i]))
@@ -137,6 +142,10 @@ def get_upcoming():
 @app.route("/tmdb/search", methods=["GET", "POST"])
 def get_serach():
     data = request.get_json()
+    
+    if data == "":
+        return []
+
     url = f"https://api.themoviedb.org/3/search/movie?query={data}&include_adult=false&language=en-US&page=1"
     
     return aggregate_results_post(url)
