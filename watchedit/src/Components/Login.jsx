@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Signup from './Signup'
 
-const Login = () => {
+const Login = ({setScreen}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -14,14 +14,12 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
-    const handleSubmit = (e) => {
-        console.log("clicked")
-        e.preventDefault()
-        console.log(email)
+    const handleSubmit = async() => {
+        
     }
 
     const handleSignupClick = () => {
-            
+        
     }
 
   return (
@@ -30,11 +28,11 @@ const Login = () => {
             <div className="auth-title">
                 <p1>Login</p1><br/><br/>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={() => handleSubmit}>
                 <p1>Email</p1><br/>
-                <input className="input" value={email} type="email" required onChange={() => handleEmailChange(event)}></input><br/><br/>
+                <input className="input" value={email} type="email" onChange={() => handleEmailChange(event)}></input><br/><br/>
                 <p1>Password</p1><br/>
-                <input className="input" value={password} type="password" required onChange={() => handlePasswordChange(event)}></input><br/><br/>
+                <input className="input" value={password} type="password" onChange={() => handlePasswordChange(event)}></input><br/><br/>
                 <div className="auth-btn-container">
                     <button className="auth-btn" type="submit">Login</button>
                     <button className="auth-btn" onClick={handleSignupClick}>Sign Up</button>
