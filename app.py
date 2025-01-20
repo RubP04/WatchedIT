@@ -191,6 +191,26 @@ def login():
 
     return jsonify(result)
 
+@app.route("/signup", methods=["GET", "POST"])
+def login():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+    result = {
+        "validated": False
+    }
+
+    response = create_user(email, password)
+    
+    try:
+        user = response.user
+        result["validated"] = True
+    except Exception as e:
+        print(e)
+
+
+    return jsonify(result)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
