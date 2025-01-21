@@ -48,10 +48,20 @@ const Login = ({setScreen}) => {
         }
     }
 
-    const handleSignupClick = async() => {
+    const handleSignupClick = async(e) => {
         e.preventDefault()
 
-        const data = await authEndpoint("http://127.0.0.1:5000/login")
+        const data = await authEndpoint("http://127.0.0.1:5000/signup")
+
+        if (data.validated){
+            setScreen("findmovies")
+        }
+        else{
+            setError("Sign Up Failed!")
+            setTimeout(() => {
+                setError("")
+            }, 2000)
+        }
     }
 
   return (
@@ -68,7 +78,7 @@ const Login = ({setScreen}) => {
                 <p1 className="error-msg">{error}</p1>
                 <div className="auth-btn-container">
                     <button className="auth-btn" type="submit">Login</button>
-                    <button className="auth-btn" onClick={handleSignupClick}>Sign Up</button>
+                    <button className="auth-btn" onClick={() => handleSignupClick(event)}>Sign Up</button>
                 </div>
             </form>
         </div>

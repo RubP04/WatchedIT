@@ -207,8 +207,7 @@ def signup():
         user = response.user
         result["validated"] = True
     except Exception as e:
-        print(e)
-
+        result["validated"] = False
 
     return jsonify(result)
 
