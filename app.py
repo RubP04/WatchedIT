@@ -186,13 +186,14 @@ def login():
         user = response.user
         result["validated"] = True
     except Exception as e:
-        print(e)
+        result["validated"] = False
 
+    print(response)
 
     return jsonify(result)
 
 @app.route("/signup", methods=["GET", "POST"])
-def login():
+def signup():
     data = request.get_json()
     email = data.get("email")
     password = data.get("password")

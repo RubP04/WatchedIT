@@ -14,14 +14,11 @@ const Login = ({setScreen}) => {
         setPassword(e.target.value)
     }
 
-    const handleSubmit = async(e) => {
-        e.preventDefault()
-
+    const authEndpoint = async(url) => {
         const credentials = {
             "email": email,
             "password": password
         }
-        const url = "http://127.0.0.1:5000/login"
 
         const response = await fetch(url, {
             method: "POST",
@@ -32,6 +29,14 @@ const Login = ({setScreen}) => {
         })
         const data = await response.json()
         
+        return data
+    }
+
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        
+        const data = await authEndpoint("http://127.0.0.1:5000/login")
+
         if (data.validated){
             setScreen("findmovies")
         }
@@ -43,8 +48,10 @@ const Login = ({setScreen}) => {
         }
     }
 
-    const handleSignupClick = () => {
-        
+    const handleSignupClick = async() => {
+        e.preventDefault()
+
+        const data = await authEndpoint("http://127.0.0.1:5000/login")
     }
 
   return (
