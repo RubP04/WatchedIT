@@ -177,7 +177,8 @@ def login():
     email = data.get("email")
     password = data.get("password")
     result = {
-        "validated": False
+        "validated": False,
+        "message": ""
     }
 
     response = sign_user_in(email, password)
