@@ -57,7 +57,7 @@ const Login = ({setScreen}) => {
             setScreen("findmovies")
         }
         else{
-            setError("Sign Up Failed!")
+            setError(data.message)
             setTimeout(() => {
                 setError("")
             }, 2000)
