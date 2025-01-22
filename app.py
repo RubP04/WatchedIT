@@ -186,7 +186,7 @@ def login():
         user = response.user
         result["validated"] = True
     except Exception as e:
-        result["validated"] = False
+        result["message"] = response
 
     print(response)
 
@@ -198,7 +198,8 @@ def signup():
     email = data.get("email")
     password = data.get("password")
     result = {
-        "validated": False
+        "validated": False,
+        "message": ""
     }
 
     response = create_user(email, password)
@@ -207,7 +208,7 @@ def signup():
         user = response.user
         result["validated"] = True
     except Exception as e:
-        result["validated"] = False
+        result["message"] = response
 
     return jsonify(result)
 
