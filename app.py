@@ -213,6 +213,10 @@ def signup():
         result["message"] = response.name
 
     return jsonify(result)
+
+@app.route("/sync/data", methods=["GET", "POST"])
+def sync_data():
+    pass
     
 
 if __name__ == "__main__":

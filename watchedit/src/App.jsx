@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import NavBar from "./Components/NavBar"
 import Home from "./Components/Home"
 import Watchlist from "./Components/Watchlist"
@@ -14,6 +14,26 @@ function App() {
   const loginProps = {setScreen}
   const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen}
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen}
+
+  useEffect(() =>{
+    api_post_call(movies)
+  }, [movies])
+
+  useEffect(() =>{
+    api_post_call(completed)
+  }, [completed])
+
+  const api_post_call = async (url, val) =>{
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(val)
+    })
+    const data = await response.json()
+    setOptions(data)
+}
 
   return (
     <>
