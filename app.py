@@ -187,7 +187,7 @@ def login():
     response = sign_user_in(email, password)
     
     try:
-        user = response.user
+        session["user_id"] = response.user.id
         result["validated"] = True
     except Exception as e:
         result["message"] = response.name
@@ -207,7 +207,7 @@ def signup():
     response = create_user(email, password)
     
     try:
-        user = response.user
+        session["user_id"] = response.user.id
         result["validated"] = True
     except Exception as e:
         result["message"] = response.name
