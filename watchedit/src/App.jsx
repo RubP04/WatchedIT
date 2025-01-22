@@ -12,8 +12,8 @@ function App() {
   const [options, setOptions] = useState([])
   const [completed, setCompleted] = useState([])
   const loginProps = {setScreen}
-  const findMovieProps = {movies, setMovies, completed, options, setOptions}
-  const watchlistProps = {movies, setMovies, completed, setCompleted}
+  const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen}
+  const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen}
 
   return (
     <>

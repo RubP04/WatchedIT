@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Loader from "./Loader"
 
-const FindMovies = ({movies, setMovies, completed, options, setOptions}) => {
+const FindMovies = ({movies, setMovies, completed, options, setOptions, setScreen}) => {
 
     /*const [options, setOptions] = useState([])*/
     const [isLoading, setIsLoading] = useState(false)

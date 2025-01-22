@@ -1,13 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session, redirect
 from flask_cors import CORS
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from db import create_user, sign_user_in
-import requests, pandas as pd
+import requests, pandas as pd, secrets
+
+secret_key = secrets.token_hex(32)
+API_KEY = "f2f5e37477c1b3be4cd60c0ec80fdc9a"
 
 app = Flask(__name__)
+app.secret_key = secret_key
 CORS(app)
-API_KEY = "f2f5e37477c1b3be4cd60c0ec80fdc9a"
     
 def api_results(url):
     params = {
@@ -189,8 +192,6 @@ def login():
     except Exception as e:
         result["message"] = response.name
 
-    print(response)
-
     return jsonify(result)
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -212,7 +213,7 @@ def signup():
         result["message"] = response.name
 
     return jsonify(result)
-
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

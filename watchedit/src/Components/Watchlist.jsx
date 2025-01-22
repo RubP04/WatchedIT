@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
 
-const Watchlist = ({movies, setMovies, completed, setCompleted}) => {
+const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen}) => {
 
     const [selected, setSelected] = useState("Watchlist")
     const [isLoading, setIsLoading] = useState(true)
-
+    
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false)
