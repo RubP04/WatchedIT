@@ -16,11 +16,11 @@ function App() {
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen}
 
   useEffect(() =>{
-    api_post_call(movies)
+    api_post_call("http://127.0.0.1:5000/sync/data", movies)
   }, [movies])
 
   useEffect(() =>{
-    api_post_call(completed)
+    api_post_call("http://127.0.0.1:5000/sync/data", completed)
   }, [completed])
 
   const api_post_call = async (url, val) =>{
