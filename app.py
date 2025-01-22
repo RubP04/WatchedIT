@@ -110,6 +110,17 @@ def generate_recommendations(user_movies):
 
     return find_recommended_movies(final_results)
 
+def clean_movie_results(data):
+    cleaned_data = []
+
+    for entry in data:
+        movie_dict = {}
+        movie_dict["original_title"] = entry.get("original_title", "")
+        movie_dict["backdrop_path"] = entry.get("backdrop_path", "")
+        cleaned_data.append(movie_dict)
+    
+    return cleaned_data
+
 @app.route("/tmdb/recc", methods=["GET", "POST"])
 def get_recommendations():
     data = request.get_json()
@@ -216,7 +227,10 @@ def signup():
 
 @app.route("/sync/data", methods=["GET", "POST"])
 def sync_data():
-    pass
+    data = request.get_json()
+
+    print(data)
+    return []
     
 
 if __name__ == "__main__":
