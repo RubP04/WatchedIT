@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Loader from "./Loader"
 
-const FindMovies = ({movies, setMovies, completed, options, setOptions, setScreen}) => {
+const FindMovies = ({movies, setMovies, completed, options, setOptions, setScreen, baseURL}) => {
 
     /*const [options, setOptions] = useState([])*/
     const [isLoading, setIsLoading] = useState(false)
@@ -10,7 +10,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     const [query, setQuery] = useState("")
 
     useEffect(() =>{
-        fetch("http://127.0.0.1:5000/tmdb/genres")
+        fetch(`${baseURL}/tmdb/genres`)
             .then(response => response.json())
             .then(data => {
                 setGenres(data)
@@ -35,7 +35,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
 
     const handleOptionClick = (option) => {
         startLoader(400)
-        fetch(`http://127.0.0.1:5000/tmdb/${option}`)
+        fetch(`${baseURL}/tmdb/${option}`)
             .then((response) => response.json())
             .then((data) => {
                 setOptions(data)
@@ -62,7 +62,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
 
     const handleSelect = async (selectVal) => {
         setSelect(s => s = selectVal)
-        api_post_call("http://127.0.0.1:5000/tmdb/search/genre", selectVal)
+        api_post_call(`${baseURL}/tmdb/search/genre`, selectVal)
     }
 
     const handleRecommendationClick = async () => {
@@ -70,12 +70,12 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             completedMovies: [...completed],
             watchlistMovies: [...movies]
         }
-        api_post_call("http://127.0.0.1:5000/tmdb/recc", data)
+        api_post_call(`${baseURL}/tmdb/recc`, data)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        api_post_call("http://127.0.0.1:5000/tmdb/search", query)
+        api_post_call(`${baseURL}/tmdb/search`, query)
     }
 
     const optionsList = options.map((movie, index) => (

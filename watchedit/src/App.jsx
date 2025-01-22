@@ -11,16 +11,17 @@ function App() {
   const [movies, setMovies] = useState([])
   const [options, setOptions] = useState([])
   const [completed, setCompleted] = useState([])
-  const loginProps = {setScreen}
-  const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen}
-  const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen}
+  const baseURL = "http://127.0.0.1:5000"
+  const loginProps = {setScreen, baseURL}
+  const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
+  const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
 
   useEffect(() =>{
-    api_post_call("http://127.0.0.1:5000/sync/data", movies)
+    api_post_call(`${baseURL}/sync/data`, movies)
   }, [movies])
 
   useEffect(() =>{
-    api_post_call("http://127.0.0.1:5000/sync/data", completed)
+    api_post_call(`${baseURL}/sync/data`, completed)
   }, [completed])
 
   const api_post_call = async (url, val) =>{

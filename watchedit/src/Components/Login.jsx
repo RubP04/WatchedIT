@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Login = ({setScreen}) => {
+const Login = ({setScreen, baseURL}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -35,7 +35,7 @@ const Login = ({setScreen}) => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         
-        const data = await authEndpoint("http://127.0.0.1:5000/login")
+        const data = await authEndpoint(`${baseURL}/login`)
 
         if (data.validated){
             setScreen("findmovies")
@@ -51,7 +51,7 @@ const Login = ({setScreen}) => {
     const handleSignupClick = async(e) => {
         e.preventDefault()
 
-        const data = await authEndpoint("http://127.0.0.1:5000/signup")
+        const data = await authEndpoint(`${baseURL}/signup`)
 
         if (data.validated){
             setScreen("findmovies")
