@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
+import NavBar from './NavBar'
 
 const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen, baseURL}) => {
 
@@ -46,7 +47,6 @@ const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen, baseU
             moviesCopy[index - 1] = temp
         }
         setMovies(moviesCopy)
-        startLoader()
     }
 
     const handleMoveDown = (index) => {
@@ -57,15 +57,16 @@ const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen, baseU
             moviesCopy[index + 1] = temp
         }
         setMovies(moviesCopy)
-        startLoader()
     }
 
     const handleClearAllDoubleClick = () => {
         if (selected === "Watchlist"){
             setMovies([])
+            startLoader()
         }
         else{
             setCompleted([])
+            startLoader()
         }
     }
 
@@ -81,10 +82,14 @@ const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen, baseU
             key={index}>{movie.title}
             <img className="images" src={`https://image.tmdb.org/t/p/w154/${movie.poster_path}`}></img>
             <div className="btn-container">
-                <button className="remove-btn" onClick={() => handleRemove(index)}>Remove</button>
-                <button className="add-btn" onClick={() => handleCompleted(movie, index)}>Completed</button>
-                <button className="move-btn" disabled={index == 0} onClick={() => handleMoveUp(index)}>Move Up ⬆️</button>
-                <button className="move-btn" disabled={index == movies.length - 1} onClick={() => handleMoveDown(index)}>Move Down ⬇️</button>
+                <div className="btn-subcontainer">
+                    <button className="remove-btn" onClick={() => handleRemove(index)}>Remove</button>
+                    <button className="add-btn" onClick={() => handleCompleted(movie, index)}>Completed</button>
+                </div>
+                <div className="btn-subcontainer">
+                    <button className="move-btn" disabled={index == 0} onClick={() => handleMoveUp(index)}>⬆️</button>
+                    <button className="move-btn" disabled={index == movies.length - 1} onClick={() => handleMoveDown(index)}>⬇️</button>
+                </div>
             </div>
         </li> 
     ))

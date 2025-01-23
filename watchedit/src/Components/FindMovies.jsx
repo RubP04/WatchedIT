@@ -27,7 +27,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
 
     const handleAdd = (movie, event) => {
         setMovies([...movies, movie])
-        event.target.innerHTML = "SUCCESS!"
+        event.target.innerHTML = "SUCCESS"
         setTimeout(() => {
             event.target.innerHTML = "Add to Watchlist"
         }, 250)

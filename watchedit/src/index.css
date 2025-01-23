@@ -45,7 +45,7 @@ html, body {
   color: black;
   font-size: large;
   font-weight: bold;
-  padding: 10px;
+  padding: 5px, 5px;
   cursor: pointer;
   flex: 0 0 auto;
 }
@@ -86,7 +86,7 @@ html, body {
   background-color: rgb(0, 119, 46);
 }
 .remove-btn{
-  margin: 10px;
+  margin: 5px;
   font-family: bold;
   background-color: rgb(207, 12, 12);
   border: none;
@@ -102,7 +102,7 @@ html, body {
   background-color: rgb(109, 1, 1);
 }
 .move-btn{
-  margin: 10px;
+  margin: 5px;
   font-family: bold;
   background-color: rgb(12, 131, 241);
   border: none;
@@ -116,6 +116,12 @@ html, body {
 }
 .move-btn:hover{
   background-color: rgb(7, 77, 143);
+}
+.btn-subcontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 .sel-container{
   display:flex;
@@ -151,12 +157,12 @@ h1{
   font-size: larger;
   width: 100%;
 }
-.loader-container {
+.loader-container{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -196,7 +202,6 @@ h1{
   max-width: 100%;
   margin: 0 auto;
 }
-
 .grid-list{
   list-style: none;
   margin: 10px;
