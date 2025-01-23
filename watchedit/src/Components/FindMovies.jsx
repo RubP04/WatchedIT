@@ -10,7 +10,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     const [query, setQuery] = useState("")
 
     useEffect(() =>{
-        fetch(`${baseURL}/tmdb/genres`)
+        fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
             .then(response => response.json())
             .then(data => {
                 setGenres(data)
@@ -35,7 +35,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
 
     const handleOptionClick = (option) => {
         startLoader(400)
-        fetch(`${baseURL}/tmdb/${option}`)
+        fetch(`${baseURL}/tmdb/${option}`, {credentials:"include"})
             .then((response) => response.json())
             .then((data) => {
                 setOptions(data)
@@ -50,6 +50,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
         setIsLoading(true)
         const response = await fetch(url, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },

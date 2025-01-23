@@ -27,6 +27,7 @@ function App() {
   const api_post_call = async (url, val, category) =>{
     const response = await fetch(url, {
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json"
         },

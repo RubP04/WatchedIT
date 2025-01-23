@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, session, redirect
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from db import create_user, sign_user_in
@@ -10,7 +10,11 @@ API_KEY = "f2f5e37477c1b3be4cd60c0ec80fdc9a"
 
 app = Flask(__name__)
 app.secret_key = secret_key
-CORS(app)
+app.config.update(
+    SESSION_COOKIE_SAMESITE='None',
+    SESSION_COOKIE_SECURE=False  # Set True for HTTPS in production
+)
+CORS(app, supports_credentials=True)
     
 def api_results(url):
     params = {
@@ -122,6 +126,7 @@ def clean_movie_results(data):
     return cleaned_data
 
 @app.route("/tmdb/recc", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
 def get_recommendations():
     data = request.get_json()
     watchlist = data.get("watchlistMovies")
@@ -143,18 +148,22 @@ def get_recommendations():
     return generate_recommendations(user_movies)
     
 @app.route("/tmdb/toprated", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def top_rated():
     return aggregate_results("toprated")
 
 @app.route("/tmdb/trending", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def get_trending():
     return aggregate_results("popular")
 
 @app.route("/tmdb/upcoming", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def get_upcoming():
     return aggregate_results("upcoming")
 
 @app.route("/tmdb/search", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
 def get_serach():
     data = request.get_json()
     
@@ -166,6 +175,7 @@ def get_serach():
     return aggregate_results_post(url)
 
 @app.route("/tmdb/search/genre", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
 def get_serach_genre():
     data = request.get_json()
 
@@ -174,6 +184,7 @@ def get_serach_genre():
     return aggregate_results_post(url)
 
 @app.route("/tmdb/genres", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def get_genres():
     url = "https://api.themoviedb.org/3/genre/movie/list"
     params = {
@@ -186,6 +197,7 @@ def get_genres():
     return results
 
 @app.route("/login", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
 def login():
     data = request.get_json()
     email = data.get("email")
@@ -199,6 +211,7 @@ def login():
     
     try:
         session["user_id"] = response.user.id
+        print(session["user_id"])
         result["validated"] = True
     except Exception as e:
         result["message"] = response.name
@@ -206,6 +219,7 @@ def login():
     return jsonify(result)
 
 @app.route("/signup", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
 def signup():
     data = request.get_json()
     email = data.get("email")
@@ -226,10 +240,11 @@ def signup():
     return jsonify(result)
 
 @app.route("/sync/data", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
 def sync_data():
     data = request.get_json()
 
-    print(data)
+    print(session["user_id"])
     return []
     
 
