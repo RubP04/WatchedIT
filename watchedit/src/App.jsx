@@ -40,7 +40,7 @@ function App() {
     }
     else{
       setMovies(data)
-    }*/
+    }*/ 
 }
 
   return (
