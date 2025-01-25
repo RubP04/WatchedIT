@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, session, redirect
+from flask import Flask, request, jsonify, session
+from flask_session import Session
 from flask_cors import CORS, cross_origin
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -10,11 +11,14 @@ API_KEY = "f2f5e37477c1b3be4cd60c0ec80fdc9a"
 
 app = Flask(__name__)
 app.secret_key = secret_key
-app.config.update(
-    SESSION_COOKIE_SAMESITE='None',
-    SESSION_COOKIE_SECURE=False  # Set True for HTTPS in production
-)
-CORS(app, supports_credentials=True)
+CORS(app, resources={
+    r"/*": {
+        "origins": ["http://localhost:5173"],  # Your frontend URL
+        "supports_credentials": True
+    }
+})
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True
     
 def api_results(url):
     params = {
