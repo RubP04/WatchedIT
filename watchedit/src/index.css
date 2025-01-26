@@ -54,6 +54,10 @@ html, body {
   background-color: gray;
   color: black
 }
+.gif-container{
+  display: flex;
+  overflow: hidden;
+}
 .reg-btn{
   margin: 10px;
   font-family: bold;

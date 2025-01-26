@@ -12,25 +12,31 @@ const Home = () => {
         <img src="./main.png"></img>
       </div>
     </div>
-    <div style={{ height: 0, paddingBottom: 'calc(56.25%)', position: 'relative', width: '100%' }}>
-      <iframe
-        allow="autoplay; gyroscope;"
-        allowFullScreen
-        height="100%"
-        referrerPolicy="strict-origin"
-        src="https://www.kapwing.com/e/67958d08c63ad2b1bbb1fb1e"
-        style={{
-          border: 0,
-          height: '50%',
-          left: 0,
-          overflow: 'hidden',
-          position: 'absolute',
-          top: 0,
-          width: '90%',
-        }}
-        title="Embedded content made on Kapwing"
-        width="100%"
-      ></iframe>
+    <div className="gif-container">
+      <div>
+        <p1>Movies recommended based on your preferences.</p1>
+      </div>
+      <div style={{ height: 0, paddingBottom: 'calc(56.25%)', position: 'relative', width: '100%'}}>
+        <iframe
+          allow="autoplay; gyroscope;"
+          allowFullScreen
+          height="100%"
+          referrerPolicy="strict-origin"
+          src="https://www.kapwing.com/e/67958d08c63ad2b1bbb1fb1e"
+          style={{
+            border: 0,
+            height: '40%',
+            left: 0,
+            overflow: 'hidden',
+            position: 'absolute',
+            top: 0,
+            width: '80%',
+            margin: 0,
+          }}
+          title="Embedded content made on Kapwing"
+          width="100%"
+        ></iframe>
+        </div>
       </div>
     </>
   )
