@@ -291,3 +291,20 @@ h1{
   display: flex;
   justify-content: center;
 }
+.highlight {
+  position: relative;
+  display: inline-block;
+  color: black;
+  overflow: hidden; /* Prevent overflow of the pseudo-element */
+  padding: 10px;
+  background-color: black;
+  animation: textColorChange 1.5s infinite;
+}
+@keyframes textColorChange {
+  0%, 100% {
+    color: black;
+  }
+  50% {
+    color: white;
+  }
+}
