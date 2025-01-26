@@ -9,7 +9,7 @@ html, body {
 }
 .navigation-bar {
   box-sizing: border-box;
-  padding: 20px;
+  padding: 10px;
   border: none;
   display: flex;
   background-color: black;
@@ -187,7 +187,6 @@ h1{
 }
 .watchlist-title{
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 .watchlist {

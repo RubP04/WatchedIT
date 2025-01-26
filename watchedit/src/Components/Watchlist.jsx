@@ -106,7 +106,7 @@ const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen, baseU
     <>
         <div className="watchlist-container">
             <div className="watchlist-title">
-                <h1>Watch List</h1>
+                <h1 style={{marginBottom: 0, marginTop: 70,}}>Watch List</h1>
             </div>
             <div className="sel-container">
                 <select className="reg-btn" value={selected} onChange={() => {

@@ -95,8 +95,9 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
 
   return (
     <>
+    <div className="test-container">
         <div className="watchlist-title">
-            <h1>Find Movies</h1>
+            <h1 style={{marginBottom: 20, marginTop: 70,}}>Find Movies</h1>
         </div>
         <div className="options-container">
             <button className="reg-btn" onClick={() => handleOptionClick("toprated")}>Top Rated</button>
@@ -112,6 +113,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
                 <button className="reg-btn"type="submit">Search</button>
             </form>
         </div>
+    </div>
         {isLoading ? <div className="loader-container"><Loader/></div>:<div class="grid-container"><ol class="grid-list">{optionsList}</ol></div>}
     </>
   )
