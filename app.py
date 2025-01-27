@@ -79,12 +79,20 @@ def extract_movie_info(movie):
     return movie_info
 
 def find_recommended_movies(top_recommendations):
+    movie_set = set()
     data = {
         "results": []
     }
     for movie in top_recommendations:
         url = f"https://api.themoviedb.org/3/search/movie?query={movie}&include_adult=false&language=en-US&page=1"
-        data["results"].append(api_results(url)[0])
+        result = api_results(url)[0]
+        movie_title = result.get("original_title")
+        
+        if movie_title in movie_set:
+            pass
+        else:
+            data["results"].append(api_results(url)[0])
+            movie_set.add(movie_title)
    
     return jsonify(data.get("results"))
 
