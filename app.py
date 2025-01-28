@@ -11,15 +11,8 @@ API_KEY = "f2f5e37477c1b3be4cd60c0ec80fdc9a"
 
 app = Flask(__name__)
 app.secret_key = secret_key
-CORS(app, resources={
-    r"/*": {
-        "origins": ["http://localhost:5173"],  # Your frontend URL
-        "supports_credentials": True
-    }
-})
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'
-app.config['SESSION_COOKIE_SECURE'] = True
-    
+CORS(app)
+
 def api_results(url):
     params = {
         "api_key" : API_KEY
@@ -87,7 +80,7 @@ def find_recommended_movies(top_recommendations):
         url = f"https://api.themoviedb.org/3/search/movie?query={movie}&include_adult=false&language=en-US&page=1"
         result = api_results(url)[0]
         movie_title = result.get("original_title")
-        
+
         if movie_title in movie_set:
             pass
         else:
