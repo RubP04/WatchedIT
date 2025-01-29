@@ -93,7 +93,7 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
 
     const optionsList = options.map((movie, index) => (
         <li key={index} className="movie">
-            {movie.title}<br/>{movie.vote_average.toFixed(1)}/10<br/>
+            {movie.title}<br/>{(movie.vote_average ?? 0).toFixed(1)}/10<br/>
             <img className="images" src={`https://image.tmdb.org/t/p/w154/${movie.poster_path}`} alt="IMAGE NOT FOUND"></img> <br/>
             <button className="add-btn" onClick={() => handleAdd(movie, event)}>Add to Watchlist</button>
         </li>
@@ -138,7 +138,7 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
             </div>
             <div className="page-btn-container">
                 <button className="reg-btn" onClick={handlePageDecrease}>&lt;</button>
-                <p>Page {pageNo} of {Math.round(options.length / moviesPerPage)}</p>
+                <p>Page {pageNo} of {Math.ceil(options.length / moviesPerPage)}</p>
                 <button className="reg-btn" onClick={handlePageIncrease}>&gt;</button>
             </div>
         </>
