@@ -36,6 +36,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
 
     const handleOptionClick = async (option) => {
         setIsLoading(true)
+        setPageNo(1)
         await fetch(`${baseURL}/tmdb/${option}`, {credentials:"include"})
             .then((response) => response.json())
             .then((data) => {
@@ -50,6 +51,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
 
     const api_post_call = async (url, val) =>{
         setIsLoading(true)
+        setPageNo(1)
         const response = await fetch(url, {
             method: "POST",
             credentials: "include",
@@ -88,7 +90,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     }
 
     const handlePageIncrease = () => {
-        if (pageNo < 20){
+        if (pageNo < 25){
             setPageNo(pageNo + 1)
         }
     }
@@ -128,9 +130,11 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
-        {isLoading ? <div className="loader-container"><Loader/></div>:<div class="grid-container"><ol class="grid-list">{optionsList.slice((pageNo - 1) * 40, pageNo * 40)}</ol></div>}
-    <button onClick={handlePageDecrease}>&lt;</button>
-    <button onClick={handlePageIncrease}>&gt;</button>
+        {isLoading ? <div className="loader-container"><Loader/></div>:<div className="grid-container"><ol className="grid-list">{optionsList.slice((pageNo - 1) * 16, pageNo * 16)}</ol></div>}
+    <div className="page-btn-container">
+        <button className="reg-btn" onClick={handlePageDecrease}>&lt;</button>
+        <button className="reg-btn" onClick={handlePageIncrease}>&gt;</button>
+    </div>
     </>
   )
 }

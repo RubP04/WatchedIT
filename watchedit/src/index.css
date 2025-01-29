@@ -307,3 +307,7 @@ h1{
     color: white;
   }
 }
+.page-btn-container{
+  display: flex;
+  justify-content: center;
+}

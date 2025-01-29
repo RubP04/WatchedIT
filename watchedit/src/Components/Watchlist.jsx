@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
-import NavBar from './NavBar'
 
 const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen, baseURL}) => {
 

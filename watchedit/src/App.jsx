@@ -16,7 +16,7 @@ function App() {
   const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
 
-  useEffect(() =>{
+  /*useEffect(() =>{
     api_post_call(`${baseURL}/sync/data`, movies, "watchlist")
   }, [movies])
 
@@ -41,8 +41,9 @@ function App() {
     }
     else{
       setMovies(data)
-    }*/ 
+    } 
 }
+*/
 
   return (
     <>
