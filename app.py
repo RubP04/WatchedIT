@@ -11,7 +11,12 @@ API_KEY = "f2f5e37477c1b3be4cd60c0ec80fdc9a"
 
 app = Flask(__name__)
 app.secret_key = secret_key
-CORS(app)
+
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE='NONE'
+)
+CORS(app, supports_credentials=True)
 
 def api_results(url):
     params = {
@@ -215,6 +220,7 @@ def login():
     response = sign_user_in(email, password)
     
     try:
+        session.permanent = True
         session["user_id"] = response.user.id
         print(session["user_id"])
         result["validated"] = True
