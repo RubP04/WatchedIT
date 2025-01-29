@@ -189,7 +189,7 @@ def get_serach():
 def get_serach_genre():
     data = request.get_json()
 
-    url = f"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&vote_average.gte=7&with_genres={data}&page=1"
+    url = f"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&vote_average.gte=6.5&vote_count.gte=200&with_genres={data}&sort_by=popularity.desc&page=1"
     
     return aggregate_results_post(url)
 
