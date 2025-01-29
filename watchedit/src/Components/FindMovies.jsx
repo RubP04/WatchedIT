@@ -136,11 +136,12 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
             <div className="grid-container">
                 <ol className="grid-list">{optionsList.slice((pageNo - 1) * moviesPerPage, pageNo * moviesPerPage)}</ol>
             </div>
+            {options.length > 0 ? 
             <div className="page-btn-container">
                 <button className="reg-btn" onClick={handlePageDecrease}>&lt;</button>
                 <p>Page {pageNo} of {Math.ceil(options.length / moviesPerPage)}</p>
                 <button className="reg-btn" onClick={handlePageIncrease}>&gt;</button>
-            </div>
+            </div> : <></>}
         </>
     }
     </>
