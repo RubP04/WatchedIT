@@ -138,6 +138,7 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
             </div>
             <div className="page-btn-container">
                 <button className="reg-btn" onClick={handlePageDecrease}>&lt;</button>
+                <p>Page {pageNo} of {options.length / moviesPerPage}</p>
                 <button className="reg-btn" onClick={handlePageIncrease}>&gt;</button>
             </div>
         </>
