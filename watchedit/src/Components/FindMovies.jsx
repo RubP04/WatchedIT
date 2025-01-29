@@ -36,6 +36,7 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
             .then((response) => response.json())
             .then((data) => {
                 setOptions(data)
+                console.log(data)
             })
         setIsLoading(false)
     }
@@ -91,7 +92,7 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
     }
 
     const optionsList = options.map((movie, index) => (
-        <li key={movie.id} className="movie">
+        <li key={index} className="movie">
             {movie.title}<br/>{movie.vote_average.toFixed(1)}/10<br/>
             <img className="images" src={`https://image.tmdb.org/t/p/w154/${movie.poster_path}`} alt="IMAGE NOT FOUND"></img> <br/>
             <button className="add-btn" onClick={() => handleAdd(movie, event)}>Add to Watchlist</button>
