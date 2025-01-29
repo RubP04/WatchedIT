@@ -9,13 +9,22 @@ function App() {
 
   const [screen, setScreen] = useState("home")
   const [movies, setMovies] = useState([])
+  const [genres, setGenres] = useState([])
   const [options, setOptions] = useState([])
   const [completed, setCompleted] = useState([])
   const baseURL = "http://127.0.0.1:5000"
   const loginProps = {setScreen, baseURL}
-  const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
+  const findMovieProps = {movies, setMovies, genres, completed, options, setOptions, setScreen, baseURL}
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
 
+
+  useEffect(() =>{
+    fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
+      .then(response => response.json())
+      .then(data => {
+        setGenres(data)
+      })
+  }, [])
   /*useEffect(() =>{
     api_post_call(`${baseURL}/sync/data`, movies, "watchlist")
   }, [movies])

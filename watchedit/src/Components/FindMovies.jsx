@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Loader from "./Loader"
 
-const FindMovies = ({movies, setMovies, completed, options, setOptions, setScreen, baseURL}) => {
+const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, setScreen, baseURL}) => {
 
     /*const [options, setOptions] = useState([])*/
     const [isLoading, setIsLoading] = useState(false)
-    const [genres, setGenres] = useState([])
     const [select, setSelect] = useState()
     const [query, setQuery] = useState("")
     const [pageNo, setPageNo] = useState(1)
     const moviesPerPage = 16
 
     useEffect(() =>{
-        fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
-            .then(response => response.json())
-            .then(data => {
-                setGenres(data)
-            })
         startLoader(400)
     }, [])
-
+    
     const startLoader = (loadTime) => {
         setIsLoading(true)
         setTimeout(() => {
@@ -97,7 +91,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     }
 
     const optionsList = options.map((movie, index) => (
-        <li key={index} className="movie">
+        <li key={movie.id} className="movie">
             {movie.title}<br/>{movie.vote_average.toFixed(1)}/10<br/>
             <img className="images" src={`https://image.tmdb.org/t/p/w154/${movie.poster_path}`} alt="IMAGE NOT FOUND"></img> <br/>
             <button className="add-btn" onClick={() => handleAdd(movie, event)}>Add to Watchlist</button>
@@ -129,6 +123,8 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
                 <input className="input" value={query} onChange={(e) => handleQueryChange(e)}></input>
                 <button className="reg-btn"type="submit">Search</button>
             </form>
+            <button className="reg-btn" style={{marginRight: 0}} onClick={handlePageDecrease}>&lt;</button>
+            <button className="reg-btn" style={{marginLeft: 1}} onClick={handlePageIncrease}>&gt;</button>
         </div>
     </div>
     {
