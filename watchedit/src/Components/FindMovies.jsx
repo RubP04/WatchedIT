@@ -81,6 +81,18 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
         api_post_call(`${baseURL}/tmdb/search`, query)
     }
 
+    const handlePageDecrease = () => {
+        if (pageNo > 1){
+            setPageNo(pageNo - 1)
+        }
+    }
+
+    const handlePageIncrease = () => {
+        if (pageNo < 20){
+            setPageNo(pageNo + 1)
+        }
+    }
+
     const optionsList = options.map((movie, index) => (
         <li key={index} className="movie">
             {movie.title}<br/>{movie.vote_average.toFixed(1)}/10<br/>
@@ -116,7 +128,9 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
-        {isLoading ? <div className="loader-container"><Loader/></div>:<div class="grid-container"><ol class="grid-list">{optionsList.splice((pageNo - 1) * 40, pageNo * 40)}</ol></div>}
+        {isLoading ? <div className="loader-container"><Loader/></div>:<div class="grid-container"><ol class="grid-list">{optionsList.slice((pageNo - 1) * 40, pageNo * 40)}</ol></div>}
+    <button onClick={handlePageDecrease}>&lt;</button>
+    <button onClick={handlePageIncrease}>&gt;</button>
     </>
   )
 }
