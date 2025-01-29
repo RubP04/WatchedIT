@@ -7,7 +7,9 @@ const NavBar = ({setScreen}) => {
 
   return (
     <div className="navigation-bar">
-        <div className="title-container"><p1 className="nav-title">WatchedIt</p1></div>
+        <div className="title-container">
+          <p className="nav-title">WatchedIt</p>
+        </div>
         <div className="buttons-container">
           <button className="nav-btn" onClick={() => handleClick("home")}>Home</button>
           <button className="nav-btn" onClick={() => handleClick("watchlist")}>Watch List</button>

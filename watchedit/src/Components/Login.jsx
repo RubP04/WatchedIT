@@ -69,14 +69,14 @@ const Login = ({setScreen, baseURL}) => {
     <div className="auth-container">
         <div className="auth-form">
             <div className="auth-title">
-                <p1>Login</p1><br/><br/>
+                <p>Login</p><br/><br/>
             </div>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <p1>Email</p1><br/>
+                <p>Email</p><br/>
                 <input className="input" value={email} type="email" onChange={() => handleEmailChange(event)}></input><br/><br/>
-                <p1>Password</p1><br/>
+                <p>Password</p><br/>
                 <input className="input" value={password} type="password" onChange={() => handlePasswordChange(event)}></input><br/><br/>
-                <p1 className="error-msg">{error}</p1>
+                <p className="error-msg">{error}</p>
                 <div className="auth-btn-container">
                     <button className="auth-btn" type="submit">Login</button>
                     <button className="auth-btn" onClick={() => handleSignupClick(event)}>Sign Up</button>

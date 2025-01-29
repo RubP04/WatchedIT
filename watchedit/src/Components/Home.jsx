@@ -10,7 +10,7 @@ const Home = () => {
     </div>
     <div className="gif-container">
       <div>
-        <p1>Movies recommended based on your preferences.</p1>
+        <p>Movies recommended based on your preferences.</p>
       </div>
       <div style={{ height: 0, paddingBottom: 'calc(56.25%)', position: 'relative', width: '100%'}}>
         <iframe

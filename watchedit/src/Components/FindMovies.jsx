@@ -131,7 +131,16 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
-        {isLoading ? <div className="loader-container"><Loader/></div>:<div className="grid-container"><ol className="grid-list">{optionsList.slice((pageNo - 1) * moviesPerPage, pageNo * moviesPerPage)}</ol></div>}
+    {
+        isLoading ? 
+        <div className="loader-container">
+            <Loader/>
+        </div>
+        :
+        <div className="grid-container">
+            <ol className="grid-list">{optionsList.slice((pageNo - 1) * moviesPerPage, pageNo * moviesPerPage)}</ol>
+        </div>
+    }
     <div className="page-btn-container">
         <button className="reg-btn" onClick={handlePageDecrease}>&lt;</button>
         <button className="reg-btn" onClick={handlePageIncrease}>&gt;</button>
