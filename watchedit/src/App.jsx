@@ -25,6 +25,7 @@ function App() {
         setGenres(data)
       })
   }, [])
+
   /*useEffect(() =>{
     api_post_call(`${baseURL}/sync/data`, movies, "watchlist")
   }, [movies])

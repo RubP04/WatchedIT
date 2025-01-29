@@ -121,7 +121,7 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
             <button className="reg-btn" onClick={() => handleRecommendationClick()}>Recommendations</button>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <input className="input" value={query} onChange={(e) => handleQueryChange(e)}></input>
-                <button className="reg-btn"type="submit">Search</button>
+                <button className="reg-btn"type="submit" style={{marginRight: 200}}>Search</button>
             </form>
             <button className="reg-btn" style={{marginRight: 0}} onClick={handlePageDecrease}>&lt;</button>
             <button className="reg-btn" style={{marginLeft: 1}} onClick={handlePageIncrease}>&gt;</button>
@@ -137,10 +137,6 @@ const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, 
             <ol className="grid-list">{optionsList.slice((pageNo - 1) * moviesPerPage, pageNo * moviesPerPage)}</ol>
         </div>
     }
-    <div className="page-btn-container">
-        <button className="reg-btn" onClick={handlePageDecrease}>&lt;</button>
-        <button className="reg-btn" onClick={handlePageIncrease}>&gt;</button>
-    </div>
     </>
   )
 }
