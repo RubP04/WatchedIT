@@ -8,6 +8,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     const [genres, setGenres] = useState([])
     const [select, setSelect] = useState()
     const [query, setQuery] = useState("")
+    const [pageNo, setPageNo] = useState(1)
 
     useEffect(() =>{
         fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
@@ -33,13 +34,14 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
         }, 250)
     }
 
-    const handleOptionClick = (option) => {
-        startLoader(400)
-        fetch(`${baseURL}/tmdb/${option}`, {credentials:"include"})
+    const handleOptionClick = async (option) => {
+        setIsLoading(true)
+        await fetch(`${baseURL}/tmdb/${option}`, {credentials:"include"})
             .then((response) => response.json())
             .then((data) => {
                 setOptions(data)
             })
+        setIsLoading(false)
     }
 
     const handleQueryChange = (event) => {
@@ -114,7 +116,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
-        {isLoading ? <div className="loader-container"><Loader/></div>:<div class="grid-container"><ol class="grid-list">{optionsList}</ol></div>}
+        {isLoading ? <div className="loader-container"><Loader/></div>:<div class="grid-container"><ol class="grid-list">{optionsList.splice((pageNo - 1) * 40, pageNo * 40)}</ol></div>}
     </>
   )
 }

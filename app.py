@@ -41,7 +41,7 @@ def get_list(category, page_no):
 def aggregate_results(keyword):
     result = []
 
-    for i in range(1, 5):
+    for i in range(1, 21):
         result += get_list(keyword, i)
     
     return result
@@ -220,9 +220,7 @@ def login():
     response = sign_user_in(email, password)
     
     try:
-        session.permanent = True
         session["user_id"] = response.user.id
-        print(session["user_id"])
         result["validated"] = True
     except Exception as e:
         result["message"] = response.name
