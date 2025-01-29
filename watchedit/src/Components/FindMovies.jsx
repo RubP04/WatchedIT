@@ -9,6 +9,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     const [select, setSelect] = useState()
     const [query, setQuery] = useState("")
     const [pageNo, setPageNo] = useState(1)
+    const moviesPerPage = 16
 
     useEffect(() =>{
         fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
@@ -90,7 +91,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     }
 
     const handlePageIncrease = () => {
-        if (pageNo < 25){
+        if (pageNo < options.length / moviesPerPage){
             setPageNo(pageNo + 1)
         }
     }
@@ -103,7 +104,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
         </li>
     ))
 
-    const optionList = genres.map((genre) => (
+    const genreList = genres.map((genre) => (
         <option key={genre.id} value={genre.id}>
             {genre.name}
         </option>
@@ -121,7 +122,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             <button className="reg-btn" onClick={() => handleOptionClick("upcoming")}>Upcoming</button>
             <select value={select} className="reg-btn" defaultValue="default" onChange={() =>{handleSelect(event.target.value)}}>
                 <option value="default" disabled>Popular by Genre</option>
-                {optionList}
+                {genreList}
             </select>
             <button className="reg-btn" onClick={() => handleRecommendationClick()}>Recommendations</button>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -130,7 +131,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
-        {isLoading ? <div className="loader-container"><Loader/></div>:<div className="grid-container"><ol className="grid-list">{optionsList.slice((pageNo - 1) * 16, pageNo * 16)}</ol></div>}
+        {isLoading ? <div className="loader-container"><Loader/></div>:<div className="grid-container"><ol className="grid-list">{optionsList.slice((pageNo - 1) * moviesPerPage, pageNo * moviesPerPage)}</ol></div>}
     <div className="page-btn-container">
         <button className="reg-btn" onClick={handlePageDecrease}>&lt;</button>
         <button className="reg-btn" onClick={handlePageIncrease}>&gt;</button>
