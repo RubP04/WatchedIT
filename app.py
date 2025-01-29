@@ -50,7 +50,7 @@ def aggregate_results_post(url):
     result = []
     url_list = list(url)
 
-    for i in range(1, 5):
+    for i in range(1, 21):
         url_list[-1] = str(i)
         result += api_results(''.join(url_list))
     
