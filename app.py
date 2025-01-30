@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify, session
-from flask_session import Session
 from flask_cors import CORS, cross_origin
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from db import create_user, sign_user_in
-import requests, pandas as pd, secrets
+from dotenv import load_dotenv
+import requests, pandas as pd, secrets, os
+
+load_dotenv()
 
 secret_key = secrets.token_hex(32)
-API_KEY = "f2f5e37477c1b3be4cd60c0ec80fdc9a"
+API_KEY = os.environ.get("API_KEY")
 
 app = Flask(__name__)
 app.secret_key = secret_key
@@ -253,7 +255,7 @@ def signup():
 def sync_data():
     data = request.get_json()
 
-    print(session["user_id"])
+    print(data)
     return []
     
 

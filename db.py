@@ -1,4 +1,4 @@
-import os
+import os, psycopg2
 from dotenv import load_dotenv
 from supabase import create_client, Client
 
@@ -7,6 +7,9 @@ load_dotenv()
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+conn = psycopg2.connect(DATABASE_URL)
 
 def create_user(email, password):
     try:
@@ -33,3 +36,11 @@ def sign_user_in(email, password):
         return e
 
     return response
+
+def get_db_connection():
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM auth.users")
+    users = cur.fetchall()
+    return users
+
+print(get_db_connection())

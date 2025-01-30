@@ -26,13 +26,13 @@ function App() {
       })
   }, [])
 
-  /*useEffect(() =>{
+  useEffect(() =>{
     api_post_call(`${baseURL}/sync/data`, movies, "watchlist")
   }, [movies])
 
-  useEffect(() =>{
+  /*useEffect(() =>{
     api_post_call(`${baseURL}/sync/data`, completed, "completed")
-  }, [completed])
+  }, [completed])*/
 
   const api_post_call = async (url, val, category) =>{
     const response = await fetch(url, {
@@ -44,16 +44,13 @@ function App() {
         body: JSON.stringify(val)
     })
 
-    const data = await response.json()
-
-    /*if (category === "completed"){
+    if (category === "completed"){
       setCompleted(data)
     }
     else{
       setMovies(data)
     } 
 }
-*/
 
   return (
     <>
