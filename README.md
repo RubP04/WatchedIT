@@ -11,7 +11,7 @@ WatchEdit is a full-stack web application that allows users to explore movies, m
 - **Personalized Recommendations**: The app generates movie recommendations based on a user's watchlist and completed movies using **TF-IDF vectorization and cosine similarity**.
 - **Search Functionality**: Users can search for movies by title or genre.
 - **Watchlist Management**: Users can save movies they plan to watch and mark completed ones.
-- **Data Synchronization**: User data is synchronized with the backend.
+- **Data Synchronization**: User data is synchronized with the backend. (IN PROGRESS)
 
 ## Tech Stack
 
