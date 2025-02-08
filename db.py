@@ -38,9 +38,6 @@ def sign_user_in(email, password):
     return response
 
 def get_db_connection():
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM auth.users")
-    users = cur.fetchall()
-    return users
+    return conn.cursor()
 
 print(get_db_connection())
