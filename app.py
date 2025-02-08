@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, session
 from flask_cors import CORS, cross_origin
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from db import create_user, sign_user_in
+from db import create_user, sign_user_in, get_db_connection
 from dotenv import load_dotenv
 import requests, pandas as pd, secrets, os
 
@@ -254,8 +254,13 @@ def signup():
 @cross_origin(supports_credentials=True)
 def sync_data():
     data = request.get_json()
+    cur = get_db_connection()
 
-    print(data)
+    cur.execute("SELECT * FROM auth.users")
+    ans = cur.fetchall()
+
+
+    cur.close()
     return []
     
 
