@@ -232,6 +232,8 @@ def login():
 @app.route("/signup", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def signup():
+    conn = get_db_connection()
+    cur = conn.cursor()
     data = request.get_json()
     email = data.get("email")
     password = data.get("password")
@@ -243,10 +245,19 @@ def signup():
     response = create_user(email, password)
     
     try:
-        session["user_id"] = response.user.id
+        user_id = response.user.id
+        session["user_id"] = user_id
         result["validated"] = True
+        cur.execute(
+            "INSERT INTO user_data (user_id, list_one, list_two) VALUES (%s, %s::jsonb, %s::jsonb)",
+            (user_id, "{}", "{}")
+        )
+        conn.commit()
+        cur.close()
+        conn.close()
     except Exception as e:
         result["message"] = response.name
+        print(e)
 
     return jsonify(result)
 

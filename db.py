@@ -38,6 +38,6 @@ def sign_user_in(email, password):
     return response
 
 def get_db_connection():
-    return conn.cursor()
+    return conn
 
 print(get_db_connection())
