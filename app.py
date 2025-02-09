@@ -265,9 +265,10 @@ def signup():
 @cross_origin(supports_credentials=True)
 def sync_data():
     data = request.get_json()
+    user_id = session["user_id"]
     cur = get_db_connection()
 
-    cur.execute("SELECT * FROM auth.users")
+    cur.execute("SELECT list_one, list_two FROM user.data WHERE user_id = %s", (user_id,))
     ans = cur.fetchall()
 
 
