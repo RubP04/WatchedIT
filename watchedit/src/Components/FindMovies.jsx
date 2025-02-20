@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Loader from "./Loader"
 
-const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, setScreen, baseURL}) => {
+const FindMovies = ({movies, setMovies, completed, options, setOptions, setScreen, baseURL}) => {
 
     /*const [options, setOptions] = useState([])*/
     const [isLoading, setIsLoading] = useState(true)
+    const [genres, setGenres] = useState([])
     const [select, setSelect] = useState()
     const [query, setQuery] = useState("")
     const [pageNo, setPageNo] = useState(1)
     const moviesPerPage = 16
 
     useEffect(() =>{
+        fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
+        .then(response => response.json())
+        .then(data => {
+            setGenres(data)
+        })
         startLoader(400)
     }, [])
     
