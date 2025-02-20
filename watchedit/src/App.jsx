@@ -16,32 +16,13 @@ function App() {
   const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
 
-
   useEffect(() =>{
-    api_post_call(`${baseURL}/sync/data`, movies, "watchlist")
-  }, [movies, completed])
-
-  /*useEffect(() =>{
-    api_post_call(`${baseURL}/sync/data`, completed, "completed")
-  }, [completed])*/
-
-  const api_post_call = async (url, val, category) =>{
-    const response = await fetch(url, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(val)
+    fetch(`${baseURL}/sync/data`, {credentials:"include"})
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
     })
-
-    if (category === "completed"){
-      setCompleted(data)
-    }
-    else{
-      setMovies(data)
-    } 
-}
+  }, [])
 
   return (
     <>

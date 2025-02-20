@@ -264,16 +264,24 @@ def signup():
 @app.route("/sync/data", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def sync_data():
-    data = request.get_json()
-    user_id = session["user_id"]
-    cur = get_db_connection()
+    user_movies = {
+        "movies": [],
+        "completed": []
+    }
+    user_id = session.get("user_id")
 
-    cur.execute("SELECT list_one, list_two FROM user.data WHERE user_id = %s", (user_id,))
-    ans = cur.fetchall()
+    if user_id != None:
+        cur = get_db_connection()
 
+        cur.execute("SELECT list_one FROM user.data WHERE user_id = %s", (user_id,))
+        user_movies["movies"] = cur.fetchall()
 
-    cur.close()
-    return []
+        cur.execute("SELECT list_two FROM user.data WHERE user_id = %s", (user_id,))
+        user_movies["completed"] = cur.fetchall()
+
+        cur.close()
+
+    return user_movies
     
 
 if __name__ == "__main__":
