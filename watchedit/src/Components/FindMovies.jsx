@@ -4,7 +4,7 @@ import Loader from "./Loader"
 const FindMovies = ({movies, setMovies, genres, completed, options, setOptions, setScreen, baseURL}) => {
 
     /*const [options, setOptions] = useState([])*/
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [select, setSelect] = useState()
     const [query, setQuery] = useState("")
     const [pageNo, setPageNo] = useState(1)
