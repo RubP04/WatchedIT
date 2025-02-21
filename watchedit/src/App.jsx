@@ -17,7 +17,7 @@ function App() {
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
 
   useEffect(() =>{
-    fetch(`${baseURL}/sync/data`, {credentials:"include"})
+    fetch(`${baseURL}/retrieve/data`, {credentials:"include"})
     .then(response => response.json())
     .then(data => {
       console.log(data)

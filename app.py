@@ -261,7 +261,7 @@ def signup():
 
     return jsonify(result)
 
-@app.route("/sync/data", methods=["GET", "POST"])
+@app.route("/retrieve/data", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def sync_data():
     user_movies = {
