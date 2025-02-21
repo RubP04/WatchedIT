@@ -24,6 +24,23 @@ function App() {
     })
   }, [])
 
+  useEffect(() => {
+    const sendData = async () =>{
+      await fetch(`${baseURL}/update/data`, {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+          user_movies: movies,
+          user_completed: completed,
+        })
+      })
+    }
+    sendData()
+  }, [movies, completed])
+
   return (
     <>
       <NavBar setScreen={setScreen}/>

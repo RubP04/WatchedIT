@@ -270,7 +270,7 @@ def sync_data():
     }
     user_id = session.get("user_id")
 
-    if user_id != None:
+    if user_id:
         cur = get_db_connection()
 
         cur.execute("SELECT list_one FROM user.data WHERE user_id = %s", (user_id,))
@@ -282,6 +282,16 @@ def sync_data():
         cur.close()
 
     return user_movies
+
+@app.route("/update/data", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def update_data():
+    data = request.get_json()
+    movie_list = data.get("user_movies")
+    completed_list = data.get("completed_list")
+
+    print(movie_list)
+    return '', 204
     
 
 if __name__ == "__main__":
