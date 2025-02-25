@@ -57,6 +57,7 @@ const Login = ({setScreen, baseURL, validated, setValidated}) => {
 
         if (data.validated){
             setScreen("findmovies")
+            setValidated(!validated)
         }
         else{
             setError(data.message)

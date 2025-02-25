@@ -16,7 +16,7 @@ app.secret_key = secret_key
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_SAMESITE='NONE'
+    SESSION_COOKIE_SAMESITE='None'
 )
 CORS(app, supports_credentials=True)
 
@@ -260,6 +260,12 @@ def signup():
 
     return jsonify(result)
 
+@app.route("/logout", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def logout():
+    session["user_id"] = None
+    return '', 204
+
 @app.route("/retrieve/data", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def sync_data():
@@ -268,6 +274,7 @@ def sync_data():
         "completed": []
     }
     user_id = session.get("user_id")
+    print(user_id)
 
     if user_id != None:
         cur = get_db_connection().cursor()
@@ -285,12 +292,13 @@ def sync_data():
 @app.route("/update/data", methods=["POST"])
 @cross_origin(supports_credentials=True)
 def update_data():
-    data = request.get_json()
-    movie_list = json.dumps(data.get("user_movies"))
-    completed_list = json.dumps(data.get("completed_list"))
     user_id = session.get("user_id")
     
     if user_id != None:
+        data = request.get_json()
+        movie_list = json.dumps(data.get("user_movies"))
+        completed_list = json.dumps(data.get("completed_list"))
+
         con = get_db_connection()
         cur = con.cursor()
         cur.execute("UPDATE public.user_data SET list_one = %s::jsonb, list_two = %s::jsonb WHERE user_id = %s", (movie_list, completed_list, user_id))

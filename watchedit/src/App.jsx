@@ -13,6 +13,7 @@ function App() {
   const [completed, setCompleted] = useState([])
   const [validated, setValidated] = useState(false)
   const baseURL = "http://127.0.0.1:5000"
+  const navBarProps = {setScreen, setOptions, validated, setValidated, baseURL}
   const loginProps = {setScreen, baseURL, validated, setValidated}
   const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
@@ -22,7 +23,7 @@ function App() {
     .then(response => response.json())
     .then(data => {
       setMovies(data.movies)
-      console.log(movies)
+      setCompleted(data.completed)
     })
   }, [validated])
 
@@ -40,12 +41,14 @@ function App() {
         })
       })
     }
-    sendData()
+    if(validated){
+      sendData()
+    }
   }, [movies, completed])
 
   return (
     <>
-      <NavBar setScreen={setScreen}/>
+      <NavBar {...navBarProps}/>
       {screen == "home" ? <Home/>:screen=="login" ? <Login {...loginProps}/>:screen=="findmovies" ? <FindMovies {...findMovieProps}/>:<Watchlist {...watchlistProps}/>}
     </>
   )
