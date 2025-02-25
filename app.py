@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from db import create_user, sign_user_in, get_db_connection
 from dotenv import load_dotenv
-import requests, pandas as pd, secrets, os
+import requests, pandas as pd, secrets, os, json
 
 load_dotenv()
 
@@ -126,7 +126,7 @@ def generate_recommendations(user_movies):
 
     return find_recommended_movies(final_results)
 
-def clean_movie_results(data):
+'''def clean_movie_results(data):
     cleaned_data = []
 
     for entry in data:
@@ -135,7 +135,7 @@ def clean_movie_results(data):
         movie_dict["backdrop_path"] = entry.get("backdrop_path", "")
         cleaned_data.append(movie_dict)
     
-    return cleaned_data
+    return cleaned_data'''
 
 @app.route("/tmdb/recc", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
@@ -270,14 +270,14 @@ def sync_data():
     }
     user_id = session.get("user_id")
 
-    if user_id:
-        cur = get_db_connection()
+    if user_id != None:
+        cur = get_db_connection().cursor()
 
-        cur.execute("SELECT list_one FROM user.data WHERE user_id = %s", (user_id,))
-        user_movies["movies"] = cur.fetchall()
+        cur.execute("SELECT list_one FROM public.user_data WHERE user_id = %s", (user_id,))
+        user_movies["movies"] = cur.fetchall()[0][0]
 
-        cur.execute("SELECT list_two FROM user.data WHERE user_id = %s", (user_id,))
-        user_movies["completed"] = cur.fetchall()
+        cur.execute("SELECT list_two FROM public.user_data WHERE user_id = %s", (user_id,))
+        user_movies["completed"] = cur.fetchall()[0][0]
 
         cur.close()
 
@@ -287,10 +287,10 @@ def sync_data():
 @cross_origin(supports_credentials=True)
 def update_data():
     data = request.get_json()
-    movie_list = data.get("user_movies")
+    movie_list = json.dumps(data.get("user_movies"))
     completed_list = data.get("completed_list")
-
     print(movie_list)
+
     return '', 204
     
 

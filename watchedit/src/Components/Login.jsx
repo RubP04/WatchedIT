@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Login = ({setScreen, baseURL}) => {
+const Login = ({setScreen, baseURL, validated, setValidated}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -40,6 +40,7 @@ const Login = ({setScreen, baseURL}) => {
 
         if (data.validated){
             setScreen("findmovies")
+            setValidated(!validated)
         }
         else{
             setError("Invalid credentials!")

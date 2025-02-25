@@ -11,8 +11,9 @@ function App() {
   const [movies, setMovies] = useState([])
   const [options, setOptions] = useState([])
   const [completed, setCompleted] = useState([])
+  const [validated, setValidated] = useState(false)
   const baseURL = "http://127.0.0.1:5000"
-  const loginProps = {setScreen, baseURL}
+  const loginProps = {setScreen, baseURL, validated, setValidated}
   const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
 
@@ -20,9 +21,10 @@ function App() {
     fetch(`${baseURL}/retrieve/data`, {credentials:"include"})
     .then(response => response.json())
     .then(data => {
-      console.log(data)
+      setMovies(data.movies)
+      console.log(movies)
     })
-  }, [])
+  }, [validated])
 
   useEffect(() => {
     const sendData = async () =>{
