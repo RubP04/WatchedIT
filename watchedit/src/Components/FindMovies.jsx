@@ -78,7 +78,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             setError(e => e = "Please add movies to your watchlist and/or completed list to get recommendations!")
             setTimeout(() => {
                 setError(e => e = "")
-            }, 800)
+            }, 1000)
         }
         else{
             const data = {
@@ -141,7 +141,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
-    <p1 className="reccError">{error}</p1>
+    <p1 className="rec-error">{error}</p1>
     {
         isLoading ? 
         <div className="loader-container">
