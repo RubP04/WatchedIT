@@ -24,6 +24,7 @@ function App() {
     .then(data => {
       setMovies(data.movies)
       setCompleted(data.completed)
+      console.log(movies)
     })
   }, [validated])
 

@@ -250,7 +250,7 @@ def signup():
         result["validated"] = True
         cur.execute(
             "INSERT INTO public.user_data (user_id, list_one, list_two) VALUES (%s, %s::jsonb, %s::jsonb)",
-            (user_id, "{}", "{}")
+            (user_id, json.dumps([]), json.dumps([]))
         )
         conn.commit()
         cur.close()

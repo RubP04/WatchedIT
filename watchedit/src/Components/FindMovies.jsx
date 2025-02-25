@@ -43,7 +43,6 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             .then((response) => response.json())
             .then((data) => {
                 setOptions(data)
-                console.log(data)
             })
         setIsLoading(false)
     }
