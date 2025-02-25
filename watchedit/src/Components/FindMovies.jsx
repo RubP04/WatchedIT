@@ -9,6 +9,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     const [select, setSelect] = useState()
     const [query, setQuery] = useState("")
     const [pageNo, setPageNo] = useState(1)
+    const [error, setError] = useState("")
     const moviesPerPage = 16
 
     useEffect(() =>{
@@ -73,11 +74,19 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
     }
 
     const handleRecommendationClick = async () => {
-        const data = {
-            completedMovies: [...completed],
-            watchlistMovies: [...movies]
+        if(movies.length == 0 && completed.length == 0){
+            setError(e => e = "Please add movies to your watchlist and/or completed list to get recommendations!")
+            setTimeout(() => {
+                setError(e => e = "")
+            }, 800)
         }
-        api_post_call(`${baseURL}/tmdb/recc`, data)
+        else{
+            const data = {
+                completedMovies: [...completed],
+                watchlistMovies: [...movies]
+            }
+            api_post_call(`${baseURL}/tmdb/recc`, data)
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -132,6 +141,7 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
+    <p1 className="reccError">{error}</p1>
     {
         isLoading ? 
         <div className="loader-container">
