@@ -36,7 +36,7 @@ function App() {
         },
         body: JSON.stringify({
           user_movies: movies,
-          user_completed: completed,
+          completed_list: completed,
         })
       })
     }

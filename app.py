@@ -288,9 +288,11 @@ def sync_data():
 def update_data():
     data = request.get_json()
     movie_list = json.dumps(data.get("user_movies"))
-    completed_list = data.get("completed_list")
-    print(movie_list)
-
+    completed_list = json.dumps(data.get("completed_list"))
+    user_id = session.get("user_id")
+    
+    if user_id != None:
+        pass
     return '', 204
     
 
