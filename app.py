@@ -249,12 +249,11 @@ def signup():
         session["user_id"] = user_id
         result["validated"] = True
         cur.execute(
-            "INSERT INTO user_data (user_id, list_one, list_two) VALUES (%s, %s::jsonb, %s::jsonb)",
+            "INSERT INTO public.user_data (user_id, list_one, list_two) VALUES (%s, %s::jsonb, %s::jsonb)",
             (user_id, "{}", "{}")
         )
         conn.commit()
         cur.close()
-        conn.close()
     except Exception as e:
         result["message"] = response.name
         print(e)
