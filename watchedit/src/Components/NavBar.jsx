@@ -1,8 +1,18 @@
 
 const NavBar = ({setScreen, setOptions, validated, setValidated, baseURL}) => {
 
-  const handleClick = (navScreen) => {
-    setScreen(navScreen)
+  const navButtons = [
+    
+  ]
+  const func = () => handleClick("home")
+
+  const handleClick = async(navScreen) => {
+    if(navScreen === "logout"){
+      handleLogout()
+    }
+    else{
+      setScreen(navScreen)
+    }
   }
 
   const handleLogout = async() => {
@@ -26,7 +36,7 @@ const NavBar = ({setScreen, setOptions, validated, setValidated, baseURL}) => {
           <button className="nav-btn" onClick={() => handleClick("watchlist")}>Watch List</button>
           <button className="nav-btn" onClick={() => handleClick("findmovies")}>Find Movies</button>
           <button className="nav-btn" onClick={() => handleClick("login")}>Login</button>
-          <button className="nav-btn" onClick={() => handleLogout()}>Logout</button>
+          <button className="nav-btn" onClick={() => handleClick("logout")}>Logout</button>
         </div>
     </div>
   )

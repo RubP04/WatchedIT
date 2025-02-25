@@ -9,7 +9,6 @@ key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
-conn = psycopg2.connect(DATABASE_URL)
 
 def create_user(email, password):
     try:
@@ -38,6 +37,7 @@ def sign_user_in(email, password):
     return response
 
 def get_db_connection():
+    conn = psycopg2.connect(DATABASE_URL)
     return conn
 
 print(get_db_connection())
