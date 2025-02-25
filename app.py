@@ -292,7 +292,12 @@ def update_data():
     user_id = session.get("user_id")
     
     if user_id != None:
-        pass
+        con = get_db_connection()
+        cur = con.cursor()
+        cur.execute("UPDATE public.user_data SET list_one = %s::jsonb, list_two = %s::jsonb WHERE user_id = %s", (movie_list, completed_list, user_id))
+        con.commit()
+        cur.close()
+
     return '', 204
     
 
