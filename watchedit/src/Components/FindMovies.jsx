@@ -140,12 +140,14 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, setScree
             </form>
         </div>
     </div>
-    <p className="rec-error">{error}</p>
     {
-        isLoading ? 
+        isLoading ?
         <div className="loader-container">
             <Loader/>
         </div>
+        :
+        error !== "" ?
+        <p className="rec-error">{error}</p>
         :
         <>
             <div className="grid-container">

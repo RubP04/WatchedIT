@@ -7,13 +7,13 @@ import Login from "./Components/Login"
 
 function App() {
 
-  const [screen, setScreen] = useState("home")
+  const [screen, setScreen] = useState("Home")
   const [movies, setMovies] = useState([])
   const [options, setOptions] = useState([])
   const [completed, setCompleted] = useState([])
   const [validated, setValidated] = useState(false)
   const baseURL = "http://127.0.0.1:5000"
-  const navBarProps = {setScreen, setOptions, validated, setValidated, baseURL}
+  const navBarProps = {screen, setScreen, setOptions, validated, setValidated, baseURL}
   const loginProps = {setScreen, baseURL, validated, setValidated}
   const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
   const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <NavBar {...navBarProps}/>
-      {screen == "home" ? <Home/>:screen=="login" ? <Login {...loginProps}/>:screen=="findmovies" ? <FindMovies {...findMovieProps}/>:<Watchlist {...watchlistProps}/>}
+      {screen == "Home" ? <Home/>:screen=="Login" ? <Login {...loginProps}/>:screen=="Find Movies" ? <FindMovies {...findMovieProps}/>:<Watchlist {...watchlistProps}/>}
     </>
   )
 }

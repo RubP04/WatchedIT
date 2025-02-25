@@ -39,7 +39,7 @@ const Login = ({setScreen, baseURL, validated, setValidated}) => {
         const data = await authEndpoint(`${baseURL}/login`)
 
         if (data.validated){
-            setScreen("findmovies")
+            setScreen("Find Movies")
             setValidated(!validated)
         }
         else{
@@ -56,7 +56,7 @@ const Login = ({setScreen, baseURL, validated, setValidated}) => {
         const data = await authEndpoint(`${baseURL}/signup`)
 
         if (data.validated){
-            setScreen("findmovies")
+            setScreen("Find Movies")
             setValidated(!validated)
         }
         else{

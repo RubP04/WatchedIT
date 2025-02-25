@@ -1,18 +1,16 @@
 
-const NavBar = ({setScreen, setOptions, validated, setValidated, baseURL}) => {
+const NavBar = ({screen, setScreen, setOptions, validated, setValidated, baseURL}) => {
 
-  const navButtons = [
-    
-  ]
-  const func = () => handleClick("home")
+  var renderButtons
 
-  const handleClick = async(navScreen) => {
-    if(navScreen === "logout"){
-      handleLogout()
-    }
-    else{
-      setScreen(navScreen)
-    }
+  if(screen === "Home"){
+    renderButtons = ["Login"]
+  }
+  else if(screen === "Login"){
+    renderButtons = ["Home"]
+  }
+  else{
+    renderButtons = ["Watch List", "Find Movies", "Logout"]
   }
 
   const handleLogout = async() => {
@@ -20,11 +18,24 @@ const NavBar = ({setScreen, setOptions, validated, setValidated, baseURL}) => {
       await fetch(`${baseURL}/logout`, {credentials: "include"})
       setValidated(!validated)
       setOptions([])
-      setScreen("home")
+      setScreen("Home")
     } catch (error) {
       console.log(error)
     }
   }
+
+  const handleClick = async(navScreen) => {
+    if(navScreen === "Logout"){
+      handleLogout()
+    }
+    else{
+      setScreen(navScreen)
+    }
+  }
+
+  const buttonList = renderButtons.map((title, index) => (
+    <button key={index} className="nav-btn" onClick={() => handleClick(title)}>{title}</button>
+  ))
 
   return (
     <div className="navigation-bar">
@@ -32,11 +43,7 @@ const NavBar = ({setScreen, setOptions, validated, setValidated, baseURL}) => {
           <p className="nav-title">WatchedIt</p>
         </div>
         <div className="buttons-container">
-          <button className="nav-btn" onClick={() => handleClick("home")}>Home</button>
-          <button className="nav-btn" onClick={() => handleClick("watchlist")}>Watch List</button>
-          <button className="nav-btn" onClick={() => handleClick("findmovies")}>Find Movies</button>
-          <button className="nav-btn" onClick={() => handleClick("login")}>Login</button>
-          <button className="nav-btn" onClick={() => handleClick("logout")}>Logout</button>
+          {buttonList}
         </div>
     </div>
   )
