@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
 
-const Watchlist = ({movies, setMovies, completed, setCompleted, setScreen, baseURL}) => {
+const Watchlist = ({movies, setMovies, completed, setCompleted}) => {
 
     const [selected, setSelected] = useState("Watchlist")
     const [isLoading, setIsLoading] = useState(true)

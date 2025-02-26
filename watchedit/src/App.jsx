@@ -15,8 +15,8 @@ function App() {
   const baseURL = "http://127.0.0.1:5000"
   const navBarProps = {screen, setScreen, setOptions, validated, setValidated, baseURL}
   const loginProps = {setScreen, baseURL, validated, setValidated}
-  const findMovieProps = {movies, setMovies, completed, options, setOptions, setScreen, baseURL}
-  const watchlistProps = {movies, setMovies, completed, setCompleted, setScreen, baseURL}
+  const findMovieProps = {movies, setMovies, completed, options, setOptions, baseURL}
+  const watchlistProps = {movies, setMovies, completed, setCompleted}
 
   useEffect(() =>{
     fetch(`${baseURL}/retrieve/data`, {credentials:"include"})
