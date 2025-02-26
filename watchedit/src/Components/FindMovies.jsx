@@ -12,11 +12,15 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, baseURL}
     const moviesPerPage = 16
 
     useEffect(() =>{
-        fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
-        .then(response => response.json())
-        .then(data => {
+        try{
+            fetch(`${baseURL}/tmdb/genres`, {credentials:"include"})
+            .then(response => response.json())
+            .then(data => {
             setGenres(data)
-        })
+            })
+        } catch (error){
+            console.log(error)
+        }
         startLoader(400)
     }, [])
     
@@ -38,11 +42,15 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, baseURL}
     const handleOptionClick = async (option) => {
         setIsLoading(true)
         setPageNo(1)
-        await fetch(`${baseURL}/tmdb/${option}`, {credentials:"include"})
+        try{
+            await fetch(`${baseURL}/tmdb/${option}`, {credentials:"include"})
             .then((response) => response.json())
             .then((data) => {
                 setOptions(data)
             })
+        } catch(error){
+            console.log(error)
+        }
         setIsLoading(false)
     }
 
@@ -53,16 +61,20 @@ const FindMovies = ({movies, setMovies, completed, options, setOptions, baseURL}
     const api_post_call = async (url, val) =>{
         setIsLoading(true)
         setPageNo(1)
-        const response = await fetch(url, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(val)
-        })
-        const data = await response.json()
-        setOptions(data)
+        try{
+            const response = await fetch(url, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(val)
+            })
+            const data = await response.json()
+            setOptions(data)
+        } catch(error){
+            console.log(error)
+        }
         setIsLoading(false)
     }
 
