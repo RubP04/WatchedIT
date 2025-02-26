@@ -28,6 +28,7 @@ def api_results(url):
     response = requests.get(url, params=params)
     data = response.json()
     results = data.get("results", [])
+
     return results
 
 def get_list(category, page_no):
@@ -83,6 +84,7 @@ def find_recommended_movies(top_recommendations):
     data = {
         "results": []
     }
+
     for movie in top_recommendations:
         url = f"https://api.themoviedb.org/3/search/movie?query={movie}&include_adult=false&language=en-US&page=1"
         result = api_results(url)[0]
@@ -126,17 +128,6 @@ def generate_recommendations(user_movies):
 
     return find_recommended_movies(final_results)
 
-'''def clean_movie_results(data):
-    cleaned_data = []
-
-    for entry in data:
-        movie_dict = {}
-        movie_dict["original_title"] = entry.get("original_title", "")
-        movie_dict["backdrop_path"] = entry.get("backdrop_path", "")
-        cleaned_data.append(movie_dict)
-    
-    return cleaned_data'''
-
 @app.route("/tmdb/recc", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def get_recommendations():
@@ -161,7 +152,7 @@ def get_recommendations():
     
 @app.route("/tmdb/toprated", methods=["GET"])
 @cross_origin(supports_credentials=True)
-def top_rated():
+def get_top_rated():
     return aggregate_results("toprated")
 
 @app.route("/tmdb/trending", methods=["GET"])
@@ -176,7 +167,7 @@ def get_upcoming():
 
 @app.route("/tmdb/search", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
-def get_serach():
+def get_search():
     data = request.get_json()
     
     if data == "":
@@ -188,7 +179,7 @@ def get_serach():
 
 @app.route("/tmdb/search/genre", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
-def get_serach_genre():
+def get_search_genre():
     data = request.get_json()
 
     url = f"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&vote_average.gte=6.5&vote_count.gte=200&with_genres={data}&sort_by=popularity.desc&page=1"
@@ -206,6 +197,7 @@ def get_genres():
     response = requests.get(url, params=params)
     data = response.json()
     results = data.get("genres", [])
+
     return results
 
 @app.route("/login", methods=["GET", "POST"])
@@ -248,41 +240,41 @@ def signup():
         user_id = response.user.id
         session["user_id"] = user_id
         result["validated"] = True
+
         cur.execute(
-            "INSERT INTO public.user_data (user_id, list_one, list_two) VALUES (%s, %s::jsonb, %s::jsonb)",
+            "INSERT INTO public.user_data (user_id, watch_list, completed_list) VALUES (%s, %s::jsonb, %s::jsonb)",
             (user_id, json.dumps([]), json.dumps([]))
         )
         conn.commit()
         cur.close()
     except Exception as e:
         result["message"] = response.name
-        print(e)
-
+    
     return jsonify(result)
 
 @app.route("/logout", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def logout():
     session["user_id"] = None
+
     return '', 204
 
 @app.route("/retrieve/data", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
-def sync_data():
+def retrieve_data():
     user_movies = {
         "movies": [],
         "completed": []
     }
     user_id = session.get("user_id")
-    print(user_id)
 
     if user_id != None:
         cur = get_db_connection().cursor()
 
-        cur.execute("SELECT list_one FROM public.user_data WHERE user_id = %s", (user_id,))
+        cur.execute("SELECT watch_list FROM public.user_data WHERE user_id = %s", (user_id,))
         user_movies["movies"] = cur.fetchall()[0][0]
 
-        cur.execute("SELECT list_two FROM public.user_data WHERE user_id = %s", (user_id,))
+        cur.execute("SELECT completed_list FROM public.user_data WHERE user_id = %s", (user_id,))
         user_movies["completed"] = cur.fetchall()[0][0]
 
         cur.close()
@@ -301,7 +293,7 @@ def update_data():
 
         con = get_db_connection()
         cur = con.cursor()
-        cur.execute("UPDATE public.user_data SET list_one = %s::jsonb, list_two = %s::jsonb WHERE user_id = %s", (movie_list, completed_list, user_id))
+        cur.execute("UPDATE public.user_data SET watch_list = %s::jsonb, completed_list = %s::jsonb WHERE user_id = %s", (movie_list, completed_list, user_id))
         con.commit()
         cur.close()
 
