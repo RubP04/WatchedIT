@@ -1,130 +1,148 @@
-# WatchEdit
+# WatchedIT
 
-## Overview
-
-WatchEdit is a full-stack web application that allows users to explore movies, maintain watchlists, and receive personalized movie recommendations. The frontend is built using **React, HTML, and CSS**, while the backend is powered by **Python (Flask)**. The app utilizes **Supabase** for authentication and **The Movie Database (TMDb) API** for fetching movie data.
+A personalized movie recommendation web application that helps users discover films based on their preferences and viewing history. Built with Flask, React, and The Movie Database (TMDB) API.
 
 ## Features
 
-- **User Authentication**: Users can sign up and log in using Supabase authentication.
-- **Movie Discovery**: Users can browse movies categorized as trending, top-rated, and upcoming.
-- **Personalized Recommendations**: The app generates movie recommendations based on a user's watchlist and completed movies using **TF-IDF vectorization and cosine similarity**.
-- **Search Functionality**: Users can search for movies by title or genre.
-- **Watchlist Management**: Users can save movies they plan to watch and mark completed ones.
-- **Data Synchronization**: User data is synchronized with the backend. (IN PROGRESS)
+- **Smart Recommendations**: Discover new movies based on your watchlist and viewing history using a content-based recommendation algorithm
+- **Dynamic Browsing**: Explore movies by different categories:
+  - Top-rated films
+  - Currently trending titles
+  - Upcoming releases
+  - Popular movies by genre
+- **Search Functionality**: Find specific movies by title
+- **User Authentication**: Create an account to save your preferences
+- **Personalized Lists**: 
+  - Add movies to your watchlist
+  - Mark movies as completed
+  - Reorder your watchlist with drag functionality
+- **Responsive Design**: Enjoy a seamless experience across devices
 
-## Tech Stack
+## Technology Stack
 
-### Frontend:
+### Frontend
+- **React**: Component-based UI with hooks for state management
+- **JavaScript/JSX**: Core programming language
+- **CSS**: Custom styling for components
 
-- React.js
-- HTML
-- CSS
+### Backend
+- **Flask**: Python-based web framework serving as the API
+- **scikit-learn**: Machine learning library for the recommendation algorithm
+  - TF-IDF vectorization for text processing
+  - Cosine similarity for content matching
+- **pandas**: Data manipulation and analysis
+- **PostgreSQL**: Database for user data persistence
+- **Supabase**: Authentication services
 
-### Backend:
+### External Services
+- **TMDB API**: The Movie Database API for movie information and images
 
-- Flask (Python)
-- Flask-CORS (for handling cross-origin requests)
-- Requests (for interacting with TMDb API)
-- Scikit-learn (for recommendation system)
-- Pandas (for data handling)
-- Supabase (for user authentication)
-- dotenv (for managing environment variables)
+## How It Works
 
-## Folder Structure
+### Recommendation Engine
 
+The application implements a sophisticated content-based recommendation system:
+
+1. **Data Collection**: Aggregates film details including titles, genres, and plot summaries
+2. **Text Processing**: 
+   - Converts text data to numerical vectors using TF-IDF
+   - Removes common English stop words to improve relevance
+3. **Similarity Analysis**: 
+   - Computes cosine similarity between user-saved movies and the database
+   - Ranks potential recommendations by similarity score
+4. **Filtering**: Excludes movies already in user's watchlist or completed list
+
+### User Flow
+
+1. Sign up or log in to create a personalized experience
+2. Discover movies through various browsing options or search
+3. Build your watchlist with films you want to watch
+4. Mark movies as completed after watching
+5. Receive tailored recommendations based on your preferences
+6. Manage and prioritize your watchlist
+
+## Installation and Setup
+
+### Prerequisites
+- Python 3.7+
+- Node.js and npm
+- PostgreSQL database
+- Supabase account
+- TMDB API key
+
+### Environment Variables
+Create a `.env` file with the following variables:
 ```
-WATCHEDIT
-│── public/                # Public assets (images, icons)
-│── src/
-│   ├── assets/            # Static assets
-│   ├── Components/        # React components
-│   ├── App.jsx            # Main React app entry point
-│   ├── index.css          # Global CSS styles
-│   ├── main.jsx           # Renders App component
-│── .env                   # Environment variables
-│── .gitignore             # Git ignore file
-│── app.py                 # Flask backend
-│── db.py                  # Database handling (Supabase authentication)
-│── package.json           # Frontend dependencies
-│── requirements.txt       # Backend dependencies
-│── README.md              # Project documentation
-│── vite.config.js         # Vite configuration for React
+SUPABASE_URL=https://your-project-url.supabase.co
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+DATABASE_URL=postgresql://postgres:password@localhost:5432/movie_app
+API_KEY=f2f5a41c73e4f24a343c36c1d63d5bb0
 ```
-
-## Installation & Setup
-
-### Prerequisites:
-
-- Node.js (for frontend development)
-- Python 3.8+ (for backend)
-- Virtual environment setup for Python
 
 ### Backend Setup
+1. Clone the repository
+   ```
+   git clone https://github.com/RubP04/WatchedIT.git
+   cd WatchedIT
+   ```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/watchedit.git
-   cd watchedit
+2. Create and activate a virtual environment
    ```
-2. Create and activate a virtual environment:
-   ```bash
    python -m venv venv
-   source venv/bin/activate   # On macOS/Linux
-   venv\Scripts\activate      # On Windows
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-3. Install dependencies:
-   ```bash
+
+3. Install backend dependencies
+   ```
    pip install -r requirements.txt
    ```
-4. Set up environment variables in `.env`:
-   ```env
-   API_KEY=your_tmdb_api_key
-   SUPABASE_URL=your_supabase_url
-   SUPABASE_KEY=your_supabase_key
+
+4. Set up the database
    ```
-5. Run the Flask server:
-   ```bash
+   psql -U postgres -c "CREATE DATABASE movie_app"
+   ```
+
+5. Run the Flask server
+   ```
    python app.py
    ```
+   The server will start on http://127.0.0.1:5000
 
 ### Frontend Setup
+1. Navigate to the frontend directory
+   ```
+   cd frontend
+   ```
 
-1. Navigate to the frontend folder and install dependencies:
-   ```bash
+2. Install dependencies
+   ```
    npm install
    ```
-2. Start the frontend server:
-   ```bash
+
+3. Start the development server
+   ```
    npm run dev
    ```
+   The application will be available at http://localhost:3000
 
-## API Endpoints
+## Future Development
 
-### User Authentication
+- **Advanced Filtering**: Add options to filter by release year, runtime, etc.
+- **Enhanced Recommendations**: Implement collaborative filtering to supplement content-based recommendations
+- **Social Features**: Allow users to share recommendations and follow friends
+- **Streaming Availability**: Integrate with streaming service APIs to show where movies can be watched
+- **Performance Optimization**: Implement caching to improve load times
 
-- `POST /login` - Logs in a user
-- `POST /signup` - Signs up a new user
+## Contributions
 
-### Movie Data
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- `GET /tmdb/toprated` - Fetches top-rated movies
-- `GET /tmdb/trending` - Fetches trending movies
-- `GET /tmdb/upcoming` - Fetches upcoming movies
-- `POST /tmdb/search` - Searches movies by title
-- `POST /tmdb/search/genre` - Searches movies by genre
-- `GET /tmdb/genres` - Fetches available movie genres
+## License
 
-### Recommendations
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- `POST /tmdb/recc` - Generates personalized recommendations
+## Acknowledgements
 
-## Recommendation System
-
-The recommendation system works as follows:
-
-1. Retrieves a list of top popular movies.
-2. Extracts **title, genres, and plot overview** for each movie.
-3. Uses **TF-IDF Vectorization** to analyze textual similarity between movies.
-4. Computes **cosine similarity** scores between user’s watched movies and top movies.
-5. Recommends the top most similar movies, ensuring no duplicates.
+- [TMDB](https://www.themoviedb.org/) for their comprehensive movie database and API
+- [Supabase](https://supabase.io/) for authentication services
+- All the open source libraries and frameworks that made this project possible
